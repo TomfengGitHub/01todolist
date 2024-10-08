@@ -1,4 +1,4 @@
-# todo-list
+# Java Springboot+Vuejs todo-list
 
 Todo app for view, add, update, and delete todos using the Vue.js frontend and Spring Boot backend.
 
