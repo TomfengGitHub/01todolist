@@ -1,35 +1,18 @@
 package com.example.todo_app.service;
 
 import com.example.todo_app.model.Todo;
-import com.example.todo_app.repository.TodoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class TodoService {
+public interface TodoService {
 
-    private final TodoRepository todoRepository;
+    List<Todo> getAllTodos();
 
-       @Autowired
-    public TodoService(TodoRepository todoRepository) {
-        this.todoRepository = todoRepository;
-    }
+    Todo saveTodo(Todo todo);
 
-    public List<Todo> getAllTodos() {
-        return todoRepository.findAll();
-    }
+    Todo getTodoById(Long id);
 
-    public Todo saveTodo(Todo todo) {
-        return todoRepository.save(todo);
-    }
+    void deleteTodoById(Long id);
 
-    public Todo getTodoById(Long id) {
-        return todoRepository.findById(id).orElse(null);
-    }
-
-    public void deleteTodoById(Long id) {
-        todoRepository.deleteById(id);
-    }
+    Todo updateTodoList(Todo existingTodo);
 }

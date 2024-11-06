@@ -8,7 +8,6 @@
         <button @click="deleteTodo(todo.id)">Delete</button>
       </li>
     </ul>
-    
     <div v-if="editingTodo">
       <h3>Edit Todo</h3>
       <form @submit.prevent="updateTodo">
@@ -21,58 +20,41 @@
         <button type="submit">Update</button>
       </form>
     </div>
-
-    <div v-if="errorMessage" style="color: red;">
-      {{ errorMessage }}  
-    </div>
   </div>
 </template>
 
 <script>
-import TodoService from '../TodoService'; // api service in TodoService.js
+import TodoService from '../TodoService';
 
 export default {
   data() {
     return {
       todos: [],
-      editingTodo: null,
-      errorMessage: '' 
+      editingTodo: null
     };
   },
   created() {
     this.fetchTodos();
   },
   methods: {
-    async fetchTodos() {
-      try {
-        const response = await TodoService.getAllTodos();
+    fetchTodos() {
+      TodoService.getAllTodos().then(response => {
         this.todos = response.data;
-      } catch (error) {
-        console.error('Error fetching todos:', error);
-        this.errorMessage = 'Failed to load todos. Please try again later.'; 
-      }
+      });
     },
     editTodo(todo) {
-      this.editingTodo = { ...todo }; // Create a copy of the todo to edit
+      this.editingTodo = { ...todo };
     },
-    async updateTodo() {
-      try {
-        await TodoService.updateTodo(this.editingTodo);
-        await this.fetchTodos(); // Refresh todos after update
-        this.editingTodo = null; // Reset editing state
-      } catch (error) {
-        console.error('Error updating todo:', error);
-        this.errorMessage = 'Failed to update todo. Please try again.'; 
-      }
+    updateTodo() {
+      TodoService.updateTodo(this.editingTodo).then(() => {
+        this.fetchTodos();
+        this.editingTodo = null;
+      });
     },
-    async deleteTodo(todoId) {
-      try {
-        await TodoService.deleteTodo(todoId);
-        await this.fetchTodos();
-      } catch (error) {
-        console.error('Error deleting todo:', error);
-        this.errorMessage = 'Failed to delete todo. Please try again.';
-      }
+    deleteTodo(todoId) {
+      TodoService.deleteTodo(todoId).then(() => {
+        this.fetchTodos();
+      });
     }
   }
 };
