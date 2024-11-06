@@ -5,7 +5,7 @@ vue-frontend/node_modules/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-
+.mvn/
 ### STS ###
 .apt_generated
 .classpath
