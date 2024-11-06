@@ -8,9 +8,9 @@ Use IDE or use the terminal to run the application:
 `./mvnw spring-boot:run`
 2. Run the Vue.js Application
 Open a terminal and navigate to the vue-frontend directory.
-`run: npm install`
+run: `npm install`
 Start the Vue application:
 `npm run serve`
 
 Open your web browser and navigate to http://localhost:8080/
-![img.png](img.png)
+<img src="img.png" alt="img.png" style="zoom:50%;" />
